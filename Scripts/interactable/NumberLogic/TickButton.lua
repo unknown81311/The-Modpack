@@ -37,7 +37,7 @@ function TickButton.server_onFixedUpdate( self, dt )
 		local _newSeat = v:hasSteering() or v:hasSeat()
 		if not _newSeat then
 			local _pType = v:getType()
-			local _pUuid = tostring(v:getShape():getShapeUuid())
+			local _pUuid = tostring(v.shape.uuid)
 			if _pType == "scripted" and _pUuid ~= "6f2dd83e-bc0d-43f3-8ba5-d5209eb03d07" --[[tickbutton]] then
 				-- number input
 				numberinput = numberinput + math.floor(v.power)
@@ -108,7 +108,7 @@ function TickButton.client_onFixedUpdate(self)
 			self.interactable:setUvFrameIndex(0)
 			self.interactable:setPoseWeight(0, 0)
 			if self.playsound then
-				sm.audio.play("Button off", self.shape:getWorldPosition())
+				sm.audio.play("Button off", self.shape.worldPosition)
 			end
 			return
 		end
@@ -129,7 +129,7 @@ function TickButton.client_buttonPress(self, data)
 	end
 	
 	if data[3] then
-		sm.audio.play("Button on", self.shape:getWorldPosition())
+		sm.audio.play("Button on", self.shape.worldPosition)
 	end
 	self.animation_active = self.c_ticksToLive > 0
 end
@@ -139,4 +139,3 @@ function TickButton.client_onInteract(self, character, lookAt)
 	if not lookAt then return end
     self.network:sendToServer("server_onInteract", true)
 end
-

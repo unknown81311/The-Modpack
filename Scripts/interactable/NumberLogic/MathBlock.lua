@@ -76,7 +76,7 @@ MathBlock.modeFunctions = {
 			if #parents == 1 then
 				power = 0 - (sm.interactable.getValue(parents[1]) or parents[1].power)
 			elseif #parents == 2 then
-				if tostring(parents[1]:getShape().color) == "222222ff" or tostring(parents[2]:getShape().color) == "eeeeeeff" then
+				if tostring(parents[1].shape.color) == "222222ff" or tostring(parents[2].shape.color) == "eeeeeeff" then
 					power = (sm.interactable.getValue(parents[2]) or parents[2].power) - (sm.interactable.getValue(parents[1]) or parents[1].power)
 				else
 					power = (sm.interactable.getValue(parents[1]) or parents[1].power) - (sm.interactable.getValue(parents[2]) or parents[2].power)
@@ -87,7 +87,7 @@ MathBlock.modeFunctions = {
 				local haswhite = false
 				local hasnonwhite = false
 				for k, v in pairs(parents) do
-					if tostring(v:getShape().color) == "eeeeeeff" then
+					if tostring(v.shape.color) == "eeeeeeff" then
 						whiteinput = whiteinput + (sm.interactable.getValue(v) or v.power)
 						haswhite = true
 					else
@@ -116,7 +116,7 @@ MathBlock.modeFunctions = {
 			local power = 1
 
 			if #parents == 2 then
-				if tostring(parents[1]:getShape().color) == "222222ff" or tostring(parents[2]:getShape().color) == "eeeeeeff" then
+				if tostring(parents[1].shape.color) == "222222ff" or tostring(parents[2].shape.color) == "eeeeeeff" then
 					power = (sm.interactable.getValue(parents[2]) or parents[2].power) / (sm.interactable.getValue(parents[1]) or parents[1].power)
 				else
 					power = (sm.interactable.getValue(parents[1]) or parents[1].power) / (sm.interactable.getValue(parents[2]) or parents[2].power)
@@ -126,7 +126,7 @@ MathBlock.modeFunctions = {
 				local whitevalue = 0
 				local othervalue = 0
 				for k,v in pairs(parents) do
-					if tostring(v:getShape().color) == "eeeeeeff" then
+					if tostring(v.shape.color) == "eeeeeeff" then
 						whitevalue = whitevalue + (sm.interactable.getValue(v) or v.power)
 					else
 						othervalue = othervalue + (sm.interactable.getValue(v) or v.power)
@@ -143,7 +143,7 @@ MathBlock.modeFunctions = {
 			if #parents == 2 then
 				local pow1 = (sm.interactable.getValue(parents[1]) or parents[1].power)
 				local pow2 = (sm.interactable.getValue(parents[2]) or parents[2].power)
-				if tostring(parents[2]:getShape().color) == "222222ff" or tostring(parents[1]:getShape().color) == "eeeeeeff" then
+				if tostring(parents[2].shape.color) == "222222ff" or tostring(parents[1].shape.color) == "eeeeeeff" then
 					power = pow1%pow2
 				else
 					power = pow2%pow1
@@ -153,7 +153,7 @@ MathBlock.modeFunctions = {
 				local whitevalue = 0
 				local othervalue = 0
 				for k,v in pairs(parents) do
-					if tostring(v:getShape().color) == "eeeeeeff" then
+					if tostring(v.shape.color) == "eeeeeeff" then
 						whitevalue = whitevalue + (sm.interactable.getValue(v) or v.power)
 					else
 						othervalue = othervalue + (sm.interactable.getValue(v) or v.power)
@@ -172,7 +172,7 @@ MathBlock.modeFunctions = {
 			elseif #parents == 2 then
 				local pow1 = (sm.interactable.getValue(parents[1]) or parents[1].power)
 				local pow2 = (sm.interactable.getValue(parents[2]) or parents[2].power)
-				if tostring(parents[1]:getShape().color) == "222222ff" or tostring(parents[2]:getShape().color) == "eeeeeeff" then
+				if tostring(parents[1].shape.color) == "222222ff" or tostring(parents[2].shape.color) == "eeeeeeff" then
 					-- switch p1 p2
 					power = pow2 ^ pow1
 				else
@@ -182,7 +182,7 @@ MathBlock.modeFunctions = {
 				local whitevalue = 0
 				local othervalue = 0
 				for k,v in pairs(parents) do
-					if tostring(v:getShape().color) == "eeeeeeff" then
+					if tostring(v.shape.color) == "eeeeeeff" then
 						whitevalue = whitevalue + (sm.interactable.getValue(v) or v.power)
 					else
 						othervalue = othervalue + (sm.interactable.getValue(v) or v.power)
@@ -201,7 +201,7 @@ MathBlock.modeFunctions = {
 			elseif #parents == 2 then
 				local pow1 = (sm.interactable.getValue(parents[1]) or parents[1].power)
 				local pow2 = (sm.interactable.getValue(parents[2]) or parents[2].power)
-				if tostring(parents[1]:getShape().color) == "222222ff" or tostring(parents[2]:getShape().color) == "eeeeeeff" then
+				if tostring(parents[1].shape.color) == "222222ff" or tostring(parents[2].shape.color) == "eeeeeeff" then
 					-- switch p1 p2
 					power = pow2 ^ (1/pow1)
 				else
@@ -211,7 +211,7 @@ MathBlock.modeFunctions = {
 				local whitevalue = 0
 				local othervalue = 0
 				for k,v in pairs(parents) do
-					if tostring(v:getShape().color) == "eeeeeeff" then
+					if tostring(v.shape.color) == "eeeeeeff" then
 						whitevalue = whitevalue + (sm.interactable.getValue(v) or v.power)
 					else
 						othervalue = othervalue + (sm.interactable.getValue(v) or v.power)
@@ -227,7 +227,7 @@ MathBlock.modeFunctions = {
 			if #parents == 2 then
 				local pow1 = (sm.interactable.getValue(parents[1]) or parents[1].power)
 				local pow2 = (sm.interactable.getValue(parents[2]) or parents[2].power)
-				if tostring(parents[1]:getShape().color) == "222222ff" or tostring(parents[2]:getShape().color) == "eeeeeeff" then
+				if tostring(parents[1].shape.color) == "222222ff" or tostring(parents[2].shape.color) == "eeeeeeff" then
 					-- parent 1 = black
 					if pow2 > pow1 then power = 1 end
 				else
@@ -237,7 +237,7 @@ MathBlock.modeFunctions = {
 				local whitevalue = 0
 				local othervalue = 0
 				for k,v in pairs(parents) do
-					if tostring(v:getShape().color) == "eeeeeeff" then
+					if tostring(v.shape.color) == "eeeeeeff" then
 						whitevalue = whitevalue + (sm.interactable.getValue(v) or v.power)
 					else
 						othervalue = othervalue + (sm.interactable.getValue(v) or v.power)
@@ -253,7 +253,7 @@ MathBlock.modeFunctions = {
 			if #parents == 2 then
 				local pow1 = (sm.interactable.getValue(parents[1]) or parents[1].power)
 				local pow2 = (sm.interactable.getValue(parents[2]) or parents[2].power)
-				if tostring(parents[1]:getShape().color) == "222222ff" or tostring(parents[2]:getShape().color) == "eeeeeeff" then
+				if tostring(parents[1].shape.color) == "222222ff" or tostring(parents[2].shape.color) == "eeeeeeff" then
 					-- parent 1 = black
 					if pow2 < pow1 then power = 1 end
 				else
@@ -263,7 +263,7 @@ MathBlock.modeFunctions = {
 				local whitevalue = 0
 				local othervalue = 0
 				for k,v in pairs(parents) do
-					if tostring(v:getShape().color) == "eeeeeeff" then
+					if tostring(v.shape.color) == "eeeeeeff" then
 						whitevalue = whitevalue + (sm.interactable.getValue(v) or v.power)
 					else
 						othervalue = othervalue + (sm.interactable.getValue(v) or v.power)
@@ -291,7 +291,7 @@ MathBlock.modeFunctions = {
 			if #parents == 2 then
 				local pow1 = (sm.interactable.getValue(parents[1]) or parents[1].power)
 				local pow2 = (sm.interactable.getValue(parents[2]) or parents[2].power)
-				if tostring(parents[1]:getShape().color) == "222222ff" or tostring(parents[2]:getShape().color) == "eeeeeeff" then
+				if tostring(parents[1].shape.color) == "222222ff" or tostring(parents[2].shape.color) == "eeeeeeff" then
 					-- parent 1 = black
 					if pow2 >= pow1 then power = 1 end
 				else
@@ -301,7 +301,7 @@ MathBlock.modeFunctions = {
 				local whitevalue = 0
 				local othervalue = 0
 				for k,v in pairs(parents) do
-					if tostring(v:getShape().color) == "eeeeeeff" then
+					if tostring(v.shape.color) == "eeeeeeff" then
 						whitevalue = whitevalue + (sm.interactable.getValue(v) or v.power)
 					else
 						othervalue = othervalue + (sm.interactable.getValue(v) or v.power)
@@ -317,7 +317,7 @@ MathBlock.modeFunctions = {
 			if #parents == 2 then
 				local pow1 = (sm.interactable.getValue(parents[1]) or parents[1].power)
 				local pow2 = (sm.interactable.getValue(parents[2]) or parents[2].power)
-				if tostring(parents[1]:getShape().color) == "222222ff" or tostring(parents[2]:getShape().color) == "eeeeeeff" then
+				if tostring(parents[1].shape.color) == "222222ff" or tostring(parents[2].shape.color) == "eeeeeeff" then
 					-- parent 1 = black
 					if pow2 <= pow1 then power = 1 end
 				else
@@ -327,7 +327,7 @@ MathBlock.modeFunctions = {
 				local whitevalue = 0
 				local othervalue = 0
 				for k,v in pairs(parents) do
-					if tostring(v:getShape().color) == "eeeeeeff" then
+					if tostring(v.shape.color) == "eeeeeeff" then
 						whitevalue = whitevalue + (sm.interactable.getValue(v) or v.power)
 					else
 						othervalue = othervalue + (sm.interactable.getValue(v) or v.power)
@@ -387,7 +387,7 @@ MathBlock.modeFunctions = {
 			end
 			if #parents == 1 then
 				local pow1 = (sm.interactable.getValue(parents[1]) or parents[1].power)
-				if parents[1]:getType() == "scripted" and tostring(parents[1]:getShape():getShapeUuid()) ~= "6f2dd83e-bc0d-43f3-8ba5-d5209eb03d07" then
+				if parents[1]:getType() == "scripted" and tostring(parents[1].shape.uuid) ~= "6f2dd83e-bc0d-43f3-8ba5-d5209eb03d07" then
 					if ( self.lastparentvalue ~= pow1) then
 						power = math.random(pow1)
 					end
@@ -399,7 +399,7 @@ MathBlock.modeFunctions = {
 				local inputvalues = {}
 				local generate = false
 				for k,v in pairs(parents) do
-					if v:getType() == "scripted" and tostring(v:getShape():getShapeUuid()) ~= "6f2dd83e-bc0d-43f3-8ba5-d5209eb03d07" then
+					if v:getType() == "scripted" and tostring(v.shape.uuid) ~= "6f2dd83e-bc0d-43f3-8ba5-d5209eb03d07" then
 						table.insert(inputvalues, (sm.interactable.getValue(v) or v.power) )
 					else
 						generate = generate or ((sm.interactable.getValue(v) or v.power) ~= 0)
@@ -423,7 +423,7 @@ MathBlock.modeFunctions = {
 				local inputvalues = {}
 				local generate = false
 				for k,v in pairs(parents) do
-					if v:getType() == "scripted" and tostring(v:getShape():getShapeUuid()) ~= "6f2dd83e-bc0d-43f3-8ba5-d5209eb03d07" then
+					if v:getType() == "scripted" and tostring(v.shape.uuid) ~= "6f2dd83e-bc0d-43f3-8ba5-d5209eb03d07" then
 						table.insert(inputvalues, (sm.interactable.getValue(v) or v.power) )
 					else
 						generate = generate or ((sm.interactable.getValue(v) or v.power) ~= 0)
@@ -465,7 +465,7 @@ MathBlock.modeFunctions = {
 			if #parents > 0 then
 				local floorby = 0
 				for k,v in pairs(parents) do
-					if tostring(v:getShape().color) == "eeeeeeff" then
+					if tostring(v.shape.color) == "eeeeeeff" then
 						floorby = floorby + (sm.interactable.getValue(v) or v.power)
 					else
 						power = power + (sm.interactable.getValue(v) or v.power)
@@ -482,7 +482,7 @@ MathBlock.modeFunctions = {
 			if #parents>0 then
 				local roundby = 0
 				for k,v in pairs(parents) do
-					if tostring(v:getShape().color) == "eeeeeeff" then
+					if tostring(v.shape.color) == "eeeeeeff" then
 						roundby = roundby + (sm.interactable.getValue(v) or v.power)
 					else
 						power = power + (sm.interactable.getValue(v) or v.power)
@@ -499,7 +499,7 @@ MathBlock.modeFunctions = {
 			if #parents > 0 then
 				local roundby = 0
 				for k,v in pairs(parents) do
-					if tostring(v:getShape().color) == "eeeeeeff" then
+					if tostring(v.shape.color) == "eeeeeeff" then
 						roundby = roundby + (sm.interactable.getValue(v) or v.power)
 					else
 						power = power + (sm.interactable.getValue(v) or v.power)
@@ -537,7 +537,7 @@ MathBlock.modeFunctions = {
 			elseif #parents == 2 then
 				local pow1 = (sm.interactable.getValue(parents[1]) or parents[1].power)
 				local pow2 = (sm.interactable.getValue(parents[2]) or parents[2].power)
-				if tostring(parents[1]:getShape().color) == "222222ff" or tostring(parents[2]:getShape().color) == "eeeeeeff" then
+				if tostring(parents[1].shape.color) == "222222ff" or tostring(parents[2].shape.color) == "eeeeeeff" then
 					-- parent 2 = white
 					power = math.log(pow1)/ math.log(pow2)
 				else
@@ -637,8 +637,8 @@ MathBlock.modeFunctions = {
 			local logicon = 1
 			local haslogic = false
 			for k, v in pairs(parents) do
-				if tostring(v:getShape().color) == "eeeeeeff" and tostring(v:getShape():getShapeUuid()) ~= "6f2dd83e-bc0d-43f3-8ba5-d5209eb03d07"--[[tickbutton]] then
-				--if v:getType() == "scripted" and tostring(v:getShape():getShapeUuid()) ~= "6f2dd83e-bc0d-43f3-8ba5-d5209eb03d07"--[[tickbutton]] then
+				if tostring(v.shape.color) == "eeeeeeff" and tostring(v.shape.uuid) ~= "6f2dd83e-bc0d-43f3-8ba5-d5209eb03d07"--[[tickbutton]] then
+				--if v:getType() == "scripted" and tostring(v.shape.uuid) ~= "6f2dd83e-bc0d-43f3-8ba5-d5209eb03d07"--[[tickbutton]] then
 					-- number input
 					value = value + math.floor(v.power)
 				else
@@ -690,7 +690,7 @@ MathBlock.modeFunctions = {
 			local on = true
 			for k,v in pairs(parents) do
 				if sm.interactable.isNumberType(v) then
-					local _shape_col = tostring(v:getShape():getColor())
+					local _shape_col = tostring(v.shape.color)
 					if _shape_col == "720a74ff" then  -- 3rd purple
 						if deltatime_d == nil then deltatime_d = 0 end
 						deltatime_d = deltatime_d + v.power
@@ -755,9 +755,9 @@ MathBlock.modeFunctions = {
 				local blackinput = nil
 				local otherinput = nil
 				for k, v in pairs(parents) do
-					if tostring(v:getShape().color) == "eeeeeeff" then --white
+					if tostring(v.shape.color) == "eeeeeeff" then --white
 						whiteinput = (whiteinput and whiteinput or 0) + (sm.interactable.getValue(v) or v.power)
-					elseif tostring(v:getShape().color) == "222222ff" then --black
+					elseif tostring(v.shape.color) == "222222ff" then --black
 						blackinput = (blackinput and blackinput or 0) + (sm.interactable.getValue(v) or v.power)
 					else
 						otherinput = (otherinput and otherinput or 0) + (sm.interactable.getValue(v) or v.power)
@@ -774,7 +774,7 @@ MathBlock.modeFunctions = {
 					power = 0
 				end
 			elseif #parents == 1 then
-				local quadrant24 = (tostring(parents[1]:getShape().color) == "222222ff")
+				local quadrant24 = (tostring(parents[1].shape.color) == "222222ff")
 				power = math.atan((sm.interactable.getValue(parents[1]) or parents[1].power))/math.pi*180.0 + (quadrant24 and 90 or 0)
 			else
 				power = 0
@@ -809,9 +809,9 @@ MathBlock.modeFunctions = {
 			local whitevalues = {}
 			local blackvalues = {}
 			for k, parent in pairs(parents) do
-				if tostring(parent:getShape().color) == "eeeeeeff" then
+				if tostring(parent.shape.color) == "eeeeeeff" then
 					table.insert(whitevalues, (sm.interactable.getValue(parent) or parent.power))
-				elseif tostring(parent:getShape().color) == "222222ff" then
+				elseif tostring(parent.shape.color) == "222222ff" then
 					table.insert(blackvalues, (sm.interactable.getValue(parent) or parent.power))
 				end
 			end
@@ -1006,7 +1006,7 @@ function MathBlock.client_onFixedUpdate(self, dt)
 			local power =  0
 			local amountofparents = 0
 			for k, v in pairs(parents) do
-				local _s_uuid = tostring(v:getShape():getShapeUuid())
+				local _s_uuid = tostring(v.shape.uuid)
 				if v:getType() == "steering" or _s_uuid == "ccaa33b6-e5bb-4edc-9329-b40f6efe2c9e" or _s_uuid == "e627986c-b7dd-4365-8fd8-a0f8707af63d" then
 					amountofparents = amountofparents + 1
 					power = power + (v:getPoseWeight(0)-0.5)*2

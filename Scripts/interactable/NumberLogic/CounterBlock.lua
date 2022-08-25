@@ -81,11 +81,12 @@ function CounterBlock.server_onFixedUpdate( self, dt )
 	
 	local reset = false
 	for k,v in pairs(parents) do
-		local x = self.digs[tostring(v:getShape().color)]
+		local shape = v.shape
+		local x = self.digs[tostring(shape.color)]
 		if x ~= nil and (sm.interactable.getValue(v) or v.power) ~= 0 then
 			self.power = self.power + x * (sm.interactable.getValue(v) or v.power)
 		end
-		if tostring(sm.shape.getColor(v:getShape())) == "eeeeeeff" and v:isActive() then reset = true end
+		if tostring(shape.color) == "eeeeeeff" and v:isActive() then reset = true end
 	end
 	if reset then self.power = 0 end
 	

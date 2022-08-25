@@ -50,8 +50,8 @@ function WirelessBlock.server_onFixedUpdate( self, dt )
 		local frequency = 0 -- white number input
 		
 		for k, v in pairs(parents) do
-			if sm.interactable.isNumberType(v) and v:getType() ~= "steering" and tostring(v:getShape():getShapeUuid()) ~= "ccaa33b6-e5bb-4edc-9329-b40f6efe2c9e" --[[orienter]] and
-					tostring(sm.shape.getColor(v:getShape())) == "eeeeeeff" then
+			if sm.interactable.isNumberType(v) and v:getType() ~= "steering" and tostring(v.shape.uuid) ~= "ccaa33b6-e5bb-4edc-9329-b40f6efe2c9e" --[[orienter]] and
+					v.shape.color == "eeeeeeff" then
 				-- number, frequency
 				frequency = frequency + (sm.interactable.getValue(v) or v.power)
 			end
@@ -184,7 +184,7 @@ function WirelessBlock.client_onFixedUpdate(self, dt)
 	
 	for k, v in pairs(parents) do
 		local _isOldSeat = (v:getType() == "steering")
-		if v:hasSteering() or _isOldSeat or tostring(v:getShape():getShapeUuid()) == "ccaa33b6-e5bb-4edc-9329-b40f6efe2c9e" --[[orienter]] then
+		if v:hasSteering() or _isOldSeat or tostring(v.shape.uuid) == "ccaa33b6-e5bb-4edc-9329-b40f6efe2c9e" --[[orienter]] then
 			-- pose
 			if _isOldSeat then
 				local success, result = pcall(sm.interactable.getPoseWeight, v, 0)
@@ -199,7 +199,7 @@ function WirelessBlock.client_onFixedUpdate(self, dt)
 			
 		else
 			-- value
-			if sm.interactable.isNumberType(v) and tostring(sm.shape.getColor(v:getShape())) == "eeeeeeff" then
+			if sm.interactable.isNumberType(v) and v.shape.color == "eeeeeeff" then
 				-- number, frequency
 				frequency = frequency + (sm.interactable.getValue(v) or v.power)
 			else
@@ -300,8 +300,6 @@ end
 function WirelessBlock.client_changeMode(self, mode)
 	self.IsSender_client = mode[1]
 	if mode[2] then
-		sm.audio.play("Button on", self.shape:getWorldPosition())
+		sm.audio.play("Button on", self.shape.worldPosition)
 	end
 end
-
-

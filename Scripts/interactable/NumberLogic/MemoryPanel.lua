@@ -74,13 +74,14 @@ function MemoryPanel.server_onFixedUpdate( self, dt )
 	for k,v in pairs(parents) do
 		local _isSeat = v:hasSteering()
 		if not _isSeat then
+			local shape = v.shape
 			if sm.interactable.isNumberType(v) then
 				-- number input
-				if tostring(v:getShape().shapeUuid) == "d3eda549-778f-432b-bf21-65a32ae53378" then
+				if tostring(shape.shapeUuid) == "d3eda549-778f-432b-bf21-65a32ae53378" then
 					writevalue = writevalue or v.active
 					value = value + (sm.interactable.getValue(v) or v.power)
 					hasvalueparent = true
-				elseif tostring(v:getShape().color) == "eeeeeeff" then
+				elseif tostring(shape.color) == "eeeeeeff" then
 					-- address
 					address = address + (sm.interactable.getValue(v) or v.power)
 				else
@@ -92,7 +93,7 @@ function MemoryPanel.server_onFixedUpdate( self, dt )
 				-- logic input
 				if v.active then 
 					writevalue = true
-					if tostring(v:getShape().color) == "222222ff" then
+					if tostring(shape.color) == "222222ff" then
 						reset = true
 					end
 				end
@@ -138,12 +139,13 @@ function MemoryPanel.client_onFixedUpdate(self, dt)
 	for k,v in pairs(parents) do
 		local _isSeat = v:hasSteering()
 		if not _isSeat then
+			local shape = v.shape
 			if sm.interactable.isNumberType(v) then
 				-- number input
-				if tostring(v:getShape().shapeUuid) == "d3eda549-778f-432b-bf21-65a32ae53378" then
+				if tostring(shape).shapeUuid) == "d3eda549-778f-432b-bf21-65a32ae53378" then
 					writevalue = writevalue or v.active
 					hasvalueparent = true
-				elseif tostring(v:getShape().color) == "eeeeeeff" then
+				elseif tostring(shape.color) == "eeeeeeff" then
 					-- address
 					address = address + v.power
 				else
@@ -153,7 +155,7 @@ function MemoryPanel.client_onFixedUpdate(self, dt)
 				-- logic input
 				if v.active then 
 					writevalue = true
-					if tostring(v:getShape().color) == "222222ff" then
+					if tostring(shape.color) == "222222ff" then
 						reset = true
 					end
 				end

@@ -357,7 +357,7 @@ function AsciiBlock.client_canInteract(self)
 	return true
 end
 function AsciiBlock.client_playsound(self, sound)
-	sm.audio.play(sound, self.shape:getWorldPosition())
+	sm.audio.play(sound, self.shape.worldPosition)
 end
 
 function AsciiBlock.server_onFixedUpdate( self, dt )
@@ -368,12 +368,12 @@ function AsciiBlock.server_onFixedUpdate( self, dt )
 	local logicpower = 0
 	
 	for k, v in pairs(parents) do --reset power if there is any input that gives an absolute value
-		if v:getType() ~= "button" and tostring(v:getShape():getShapeUuid()) ~= "6f2dd83e-bc0d-43f3-8ba5-d5209eb03d07" then self.power = 0 end
+		if v:getType() ~= "button" and tostring(v.shape.uuid) ~= "6f2dd83e-bc0d-43f3-8ba5-d5209eb03d07" then self.power = 0 end
 	end
 	
 	for k, v in pairs(parents) do
 		local _sSteering = v:hasSteering()
-		local _sUuid = tostring(v:getShape():getShapeUuid())
+		local _sUuid = tostring(v.shape.uuid)
 		local _pType = v:getType()
 		if not _sSteering and _pType == "scripted" and _sUuid ~= "6f2dd83e-bc0d-43f3-8ba5-d5209eb03d07" --[[tick button]] then
 			-- number input
@@ -383,7 +383,7 @@ function AsciiBlock.server_onFixedUpdate( self, dt )
 			if not self.buttonwasactive then
 				buttoncycle = buttoncycle * -1
 				if v:isActive() then
-					local _sColor = tostring(v:getShape():getColor())
+					local _sColor = tostring(v.shape.color)
 					if _sColor == "eeeeeeff" then 
 						buttonpower = buttonpower + 1
 					elseif _sColor == "222222ff" then 
@@ -397,7 +397,7 @@ function AsciiBlock.server_onFixedUpdate( self, dt )
 			
 		else
 			-- switch / logic input
-			local bin = self.bin[tostring(sm.shape.getColor(v:getShape()))]
+			local bin = self.bin[tostring(sm.shape.getColor(v.shape))]
 			if bin then
 				self.power = self.power + (v:isActive() and bin or 0)
 			end
@@ -425,5 +425,3 @@ end
 function AsciiBlock.client_onFixedUpdate(self, dt)
 	self.interactable:setUvFrameIndex(self.icons[self.interactable.power + 1].uv)
 end
-
-

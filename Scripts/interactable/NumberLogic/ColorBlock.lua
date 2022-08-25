@@ -36,10 +36,10 @@ function ColorBlock.server_onFixedUpdate( self, dt )
 	for k, parent in pairs(parents) do
 		if not sm.interactable.isNumberType(parent) and 
 				parent:getType() ~= "steering" and 
-				tostring(parent:getShape():getShapeUuid()) ~= "ccaa33b6-e5bb-4edc-9329-b40f6efe2c9e" --[[orienter]] then
+				tostring(parent.shape.uuid) ~= "ccaa33b6-e5bb-4edc-9329-b40f6efe2c9e" --[[orienter]] then
 			-- logic: switch, logic gate, ...
 			table.remove(parents, k)
-			local parentcolor = parent:getShape().color
+			local parentcolor = parent.shape.color
 			if not (parentcolor.r == parentcolor.g) or not (parentcolor.r == parentcolor.b) then
 				HSVmode = parent.active
 			end
@@ -52,14 +52,14 @@ function ColorBlock.server_onFixedUpdate( self, dt )
 		local green = (self.power % (256^2)/256)%256
 		local blue = self.power % 256
 		self.shape.color = sm.color.new(red/255, green/255, blue/255, 1)
-		
+	local shape = v.shape
 	elseif #parents >= 3 then
 		if self.prev and self.prev < 3 then -- 2 -> 3 parents event trigger , colors parents rgb
 			local hasred, hasgreen, hasblue = false, false, false
 			local rr, gg, bb = sm.color.new(1, 0, 0, 1), sm.color.new(0, 1, 0, 1), sm.color.new(0, 0, 1, 1)
 			local validcolored = {}
 			for k, v in pairs(parents) do
-				local color = v:getShape().color
+				local color = shape.color
 				local r,g,b = color.r *255, color.g *255, color.b *255
 				if r == 255 and not hasred then 
 					hasred = true
@@ -76,24 +76,24 @@ function ColorBlock.server_onFixedUpdate( self, dt )
 			end
 			for k, v in pairs(parents) do
 				if not validcolored[v.id] then
-					local color = v:getShape().color
+					local color = shape.color
 					local r,g,b = color.r *255, color.g *255, color.b *255
 					
 					if g>r-9 and g>b and not hasgreen then
 						hasgreen = true
-						sm.shape.setColor(v:getShape(),gg)
+						sm.shape.setColor(shape,gg)
 					elseif b-4>r and b>g-1 and not hasblue then
 						hasblue = true
-						sm.shape.setColor(v:getShape(),bb)
+						sm.shape.setColor(shape,bb)
 					elseif not hasred then
 						hasred = true
-						sm.shape.setColor(v:getShape(),rr)
+						sm.shape.setColor(shape,rr)
 					elseif not hasgreen then 
 						hasgreen = true
-						sm.shape.setColor(v:getShape(),gg)
+						sm.shape.setColor(shape,gg)
 					elseif not hasblue then 
 						hasblue = true
-						sm.shape.setColor(v:getShape(),bb)
+						sm.shape.setColor(shape,bb)
 					end
 				end
 			end
@@ -102,7 +102,7 @@ function ColorBlock.server_onFixedUpdate( self, dt )
 			local haswhite, hasgrey, hasblack = false, false, false
 			local validcolored = {}
 			for k , v in pairs(parents) do 
-				local _pColor = tostring(v:getShape():getColor())
+				local _pColor = tostring(shape.color)
 				if _pColor == "eeeeeeff" and not haswhite then -- glow
 					haswhite = true
 					validcolored[v.id] = true
@@ -117,27 +117,27 @@ function ColorBlock.server_onFixedUpdate( self, dt )
 			local white, grey, black = sm.color.new("eeeeeeff"), sm.color.new("7f7f7fff"), sm.color.new("222222ff")
 			for k, v in pairs(parents) do
 				if not validcolored[v.id] then
-					local color = v:getShape().color
+					local color = shape.color
 					local r,g,b = color.r *255, color.g *255, color.b *255
 					if not (r == 255 or b == 255 or g == 255) then
 						if tostring(color) == tostring(white) and not haswhite then 
 							haswhite = true
-							v:getShape().color = white
+							shape.color = white
 						elseif tostring(grey) == tostring(grey) and not hasgrey then 
 							hasgrey = true
-							v:getShape().color = grey
+							shape.color = grey
 						elseif tostring(black) == tostring(black) and not hasblack then 
 							hasblack = true
-							v:getShape().color = black
+							shape.color = black
 						elseif not haswhite then 
 							haswhite = true
-							v:getShape().color = white 
+							shape.color = white 
 						elseif not hasgrey then 
 							hasgrey = true
-							v:getShape().color = grey
+							shape.color = grey
 						elseif not hasblack then 
 							hasblack = true
-							v:getShape().color = black
+							shape.color = black
 						end
 					end
 				end
@@ -149,20 +149,20 @@ function ColorBlock.server_onFixedUpdate( self, dt )
 			-- input parents color changed color
 			
 			for k, v in pairs(parents) do -- 3 parents connected, when repainting this'll categorize the paint into red, green, blue
-				local color = v:getShape().color
+				local color = shape.color
 				local r,g,b = sm.color.getR(color) *255,sm.color.getG(color) *255, sm.color.getB(color) *255
 					
 				if r==b and r==g then
 					-- ignore this color, don't "opti-color" it
 					if "4a4a4aff" == tostring(color) then  -- change grey to lighter grey
-						v:getShape().color = sm.color.new("7f7f7fff")
+						shape.color = sm.color.new("7f7f7fff")
 					end
 				elseif g>r-9 and g>b then
-					sm.shape.setColor(v:getShape(),sm.color.new(0, 1, 0, 1))
+					sm.shape.setColor(shape,sm.color.new(0, 1, 0, 1))
 				elseif b-4>r and b>g-1 then
-					sm.shape.setColor(v:getShape(),sm.color.new(0, 0, 1, 1))
+					sm.shape.setColor(shape,sm.color.new(0, 0, 1, 1))
 				else
-					sm.shape.setColor(v:getShape(),sm.color.new(1, 0, 0, 1))
+					sm.shape.setColor(shape,sm.color.new(1, 0, 0, 1))
 				end
 			end
 				
@@ -172,15 +172,15 @@ function ColorBlock.server_onFixedUpdate( self, dt )
 				local color = nil
 				local newcolor = nil
 				for k, parent in pairs(parents) do
-					if self.prevcolor[k] ~= tostring(parent:getShape().color) then
-						color = tostring(parent:getShape().color)
+					if self.prevcolor[k] ~= tostring(parent.shape.color) then
+						color = tostring(parent.shape.color)
 						newcolor = self.prevcolor[k]
 					end
 				end
 				if color and newcolor then
 					for k, prevcolor in pairs(self.prevcolor) do
 						if prevcolor == color and parents[k] then
-							parents[k]:getShape().color = sm.color.new(newcolor)
+							parents[k].shape.color = sm.color.new(newcolor)
 						end
 					end
 				end
@@ -188,14 +188,14 @@ function ColorBlock.server_onFixedUpdate( self, dt )
 			
 			
 		end
-		self.prevcolor = (function() local prevs = {} for k, v in pairs(parents) do table.insert(prevs, tostring(v:getShape().color)) end return prevs end)()
+		self.prevcolor = (function() local prevs = {} for k, v in pairs(parents) do table.insert(prevs, tostring(shape.color)) end return prevs end)()
 			
 		
 		local red = 0
 		local green = 0
 		local blue = 0
 		for k, v in pairs(parents) do -- calculate color to set depending on input powers that are colored
-			local color = v:getShape().color
+			local color = shape.color
 			local r,g,b = sm.color.getR(color) *255,sm.color.getG(color) *255, sm.color.getB(color) *255
 			if r==b and r==g then
 				-- left column, do nothing
@@ -239,9 +239,9 @@ function ColorBlock.server_onFixedUpdate( self, dt )
 
 	-- temp fix to remove glow/spec/refl
 	for k, v in pairs(parents) do
-		local _pUuid = tostring(v:getShape():getShapeUuid())
+		local _pUuid = tostring(v.shape.uuid)
 		if _pUuid == "921a2ace-b543-4ca3-8a9b-6f3dd3132fa9" --[[rgb block]] then break end
-		local _pColor = tostring(v:getShape():getColor())
+		local _pColor = tostring(v.shape.color)
 		if _pColor == "eeeeeeff" then -- glow
 			v:disconnect(self.interactable)
 			self.network:sendToClients("client_giveError", "glow feature currently not supported untill the devs fix this.")
@@ -276,15 +276,16 @@ function ColorBlock.client_onFixedUpdate( self, dt )
 	local parentrgb = nil
 	local parents = self.interactable:getParents()
 	for k, v in pairs(parents) do
-		if tostring(v.shape:getShapeUuid()) == "921a2ace-b543-4ca3-8a9b-6f3dd3132fa9"  then --rgb block
+		local shape = v.shape
+		if tostring(shape.uuid) == "921a2ace-b543-4ca3-8a9b-6f3dd3132fa9"  then --rgb block
 			self.interactable:setUvFrameIndex(v:getUvFrameIndex())
 			self.glowinput = v:getGlowMultiplier()
 			parentrgb = true
-		elseif tostring(v:getShape().color) == "eeeeeeff" then -- glow
+		elseif tostring(shape.color) == "eeeeeeff" then -- glow
 			self.glowinput = math.max(0,math.min(1,v.power))
-		elseif tostring(v:getShape().color) == "7f7f7fff" then -- reflection
+		elseif tostring(shape.color) == "7f7f7fff" then -- reflection
 			uv = uv + math.max(0,math.min(255,v.power))
-		elseif tostring(v:getShape().color) == "222222ff" then -- specular
+		elseif tostring(shape.color) == "222222ff" then -- specular
 			uv = uv + math.max(0,math.min(255,v.power))*256
 		end
 	end

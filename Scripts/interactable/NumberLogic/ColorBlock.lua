@@ -52,13 +52,14 @@ function ColorBlock.server_onFixedUpdate( self, dt )
 		local green = (self.power % (256^2)/256)%256
 		local blue = self.power % 256
 		self.shape.color = sm.color.new(red/255, green/255, blue/255, 1)
-	local shape = v.shape
+	
 	elseif #parents >= 3 then
 		if self.prev and self.prev < 3 then -- 2 -> 3 parents event trigger , colors parents rgb
 			local hasred, hasgreen, hasblue = false, false, false
 			local rr, gg, bb = sm.color.new(1, 0, 0, 1), sm.color.new(0, 1, 0, 1), sm.color.new(0, 0, 1, 1)
 			local validcolored = {}
 			for k, v in pairs(parents) do
+				local shape = v.shape
 				local color = shape.color
 				local r,g,b = color.r *255, color.g *255, color.b *255
 				if r == 255 and not hasred then 
@@ -76,6 +77,7 @@ function ColorBlock.server_onFixedUpdate( self, dt )
 			end
 			for k, v in pairs(parents) do
 				if not validcolored[v.id] then
+					local shape = v.shape
 					local color = shape.color
 					local r,g,b = color.r *255, color.g *255, color.b *255
 					
@@ -102,6 +104,7 @@ function ColorBlock.server_onFixedUpdate( self, dt )
 			local haswhite, hasgrey, hasblack = false, false, false
 			local validcolored = {}
 			for k , v in pairs(parents) do 
+				local shape = v.shape
 				local _pColor = tostring(shape.color)
 				if _pColor == "eeeeeeff" and not haswhite then -- glow
 					haswhite = true
@@ -117,6 +120,7 @@ function ColorBlock.server_onFixedUpdate( self, dt )
 			local white, grey, black = sm.color.new("eeeeeeff"), sm.color.new("7f7f7fff"), sm.color.new("222222ff")
 			for k, v in pairs(parents) do
 				if not validcolored[v.id] then
+					local shape = v.shape
 					local color = shape.color
 					local r,g,b = color.r *255, color.g *255, color.b *255
 					if not (r == 255 or b == 255 or g == 255) then
@@ -149,6 +153,7 @@ function ColorBlock.server_onFixedUpdate( self, dt )
 			-- input parents color changed color
 			
 			for k, v in pairs(parents) do -- 3 parents connected, when repainting this'll categorize the paint into red, green, blue
+				local shape = v.shape
 				local color = shape.color
 				local r,g,b = sm.color.getR(color) *255,sm.color.getG(color) *255, sm.color.getB(color) *255
 					

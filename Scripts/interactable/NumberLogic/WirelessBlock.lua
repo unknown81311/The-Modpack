@@ -46,12 +46,12 @@ function WirelessBlock.server_onFixedUpdate( self, dt )
 		-- only really needs to handle receiving part (power, bearings & whatever)
 
 		local parents = self.interactable:getParents()
-		local color = tostring(sm.shape.getColor(self.shape))
+		local color = tostring(self.shape.color)
 		local frequency = 0 -- white number input
 		
 		for k, v in pairs(parents) do
 			if sm.interactable.isNumberType(v) and v:getType() ~= "steering" and tostring(v.shape.uuid) ~= "ccaa33b6-e5bb-4edc-9329-b40f6efe2c9e" --[[orienter]] and
-					v.shape.color == "eeeeeeff" then
+					tostring(v.shape.color) == "eeeeeeff" then
 				-- number, frequency
 				frequency = frequency + (sm.interactable.getValue(v) or v.power)
 			end
@@ -174,7 +174,7 @@ end
 
 function WirelessBlock.client_onFixedUpdate(self, dt)
 	local parents = self.interactable:getParents()
-	local color = tostring(sm.shape.getColor(self.shape))
+	local color = tostring(self.shape.color)
 	local sendsstuff = false -- boolean, if inputs detected
 	local frequency = 0 -- white number input
 	local power = 0 -- any number input
@@ -199,7 +199,7 @@ function WirelessBlock.client_onFixedUpdate(self, dt)
 			
 		else
 			-- value
-			if sm.interactable.isNumberType(v) and v.shape.color == "eeeeeeff" then
+			if sm.interactable.isNumberType(v) and tostring(v.shape.color) == "eeeeeeff" then
 				-- number, frequency
 				frequency = frequency + (sm.interactable.getValue(v) or v.power)
 			else

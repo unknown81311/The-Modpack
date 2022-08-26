@@ -77,7 +77,7 @@ function MemoryPanel.server_onFixedUpdate( self, dt )
 			local shape = v.shape
 			if sm.interactable.isNumberType(v) then
 				-- number input
-				if tostring(shape.shapeUuid) == "d3eda549-778f-432b-bf21-65a32ae53378" then
+				if tostring(shape.uuid) == "d3eda549-778f-432b-bf21-65a32ae53378" then
 					writevalue = writevalue or v.active
 					value = value + (sm.interactable.getValue(v) or v.power)
 					hasvalueparent = true
@@ -142,7 +142,7 @@ function MemoryPanel.client_onFixedUpdate(self, dt)
 			local shape = v.shape
 			if sm.interactable.isNumberType(v) then
 				-- number input
-				if tostring(shape).shapeUuid) == "d3eda549-778f-432b-bf21-65a32ae53378" then
+				if tostring(shape.uuid) == "d3eda549-778f-432b-bf21-65a32ae53378" then
 					writevalue = writevalue or v.active
 					hasvalueparent = true
 				elseif tostring(shape.color) == "eeeeeeff" then
